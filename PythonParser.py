@@ -246,12 +246,14 @@ class ScopeTracker(ast.NodeVisitor):
         else:
             self._record_identifier(node.name, "function name", node)
 
+        param_type = "method parameter" if self.in_class else "function parameter"
+
         for arg in node.args.posonlyargs + node.args.args + node.args.kwonlyargs:
-            self._record_identifier(arg.arg, "function/ method parameter", arg)
+            self._record_identifier(arg.arg, param_type, arg)
         if node.args.vararg:
-            self._record_identifier(node.args.vararg.arg, "function/ method parameter", node.args.vararg)
+            self._record_identifier(node.args.vararg.arg, param_type, node.args.vararg)
         if node.args.kwarg:
-            self._record_identifier(node.args.kwarg.arg, "function/ method parameter", node.args.kwarg)
+            self._record_identifier(node.args.kwarg.arg, param_type, node.args.kwarg)
 
         prev = self.in_function
         self.in_function = True
@@ -354,6 +356,7 @@ class ScopeTracker(ast.NodeVisitor):
         if node.orelse:
             self.visit_statements(node.orelse)
 
+
     def visit_ExceptHandler(self, node):
         if node.name:
             self._record_identifier(node.name, "exception variable", node)
@@ -368,6 +371,29 @@ class ScopeTracker(ast.NodeVisitor):
         self.nested_scope_number -= 1
         self.nested_indentation_number -= 1
         self.in_except = prev
+
+    # =======IF=============
+    def visit_If(self, node):
+        prev = self.in_if
+        self.in_if = True
+        self.nested_indentation_number += 1
+
+        self.generic_visit(node)
+
+        self.nested_indentation_number -= 1
+        self.in_if = prev
+
+    # ==========WHILE=========
+
+    def visit_While(self, node):
+        prev = self.in_while
+        self.in_while = True
+        self.nested_indentation_number += 1
+
+        self.generic_visit(node)
+
+        self.nested_indentation_number -= 1
+        self.in_while = prev
 
     # === COMPREHENSIONS ===
     def visit_comprehension(self, node):
@@ -481,12 +507,18 @@ class PythonIdentifierExtractor:
         cleaned_python_filepath = os.path.join(temp_file_dir, file_name)
 
         # Extract the identifiers
-        # ...
+        df = self.extract_identifiers_without_cleaning(python_file_path)
 
         # clean up all the temp file, dir we created along the way
         self.clear_temp_dir(python_file_path)
+
+        return df
 
     def extract_identifiers_without_cleaning(self, python_file_path):
         with open(python_file_path, "r", encoding='utf-8', errors='ignore') as f:
             content = f.read()
         tree = ast.parse(content)
+        tracker = ScopeTracker()
+        tracker.visit(tree)
+        return pd.DataFrame(tracker.identifiers)
+
