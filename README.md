@@ -78,7 +78,8 @@ So here are my classification for identifeirs (it's convinent for my masters the
     function name 
     class name
     method name 
-    function/ method parameter
+    function parameter
+    method parameter
     lambda parameter
 
     import alias
