@@ -45,10 +45,10 @@ These things (and hopefully only these things) in python (might) introduce new i
     Exception binding - exception variable
     comprehension - comprehension variable
     Pattern Matching -  pattern_matching variable
-    lambda expression - lambda parameter and lambda variable
 
     function/ async function declaration - function name (might be a class method name)
     function/ async function/ method parameters (Positional-only, Keyword-only, Vararg, Kwarg) - parameters 
+    lambda expression - lambda parameter
     class/ enum declaration - class name
     
     import/ from import alia - variable, function name or class name 
@@ -74,7 +74,6 @@ So here are my classification for identifeirs (it's convinent for my masters the
     exception variable
     comprehension variable
     pattern_matching variable
-    lambda variable
     
     function name 
     class name
@@ -104,6 +103,8 @@ Things that does not indtroduce new scope (identifier defined inside can be acce
     with statement
     try/except/finally	
 There are also nested/enclosed scopes, a funciton inside a class (method), function inside function (nested function), class inside class (inner class); even rare stuff like class inside function or class inside funciton inside class...... The nested level can go very deep as long as there are enough memory. 
+
+Also notice that for "IF, FOR, WHILE, TRY" there can be extra "else", but the else will have the same scope and indentation as them. So not really realavent to identify them in our research. 
 
 ## Indentation
 These things comes with new indentation
