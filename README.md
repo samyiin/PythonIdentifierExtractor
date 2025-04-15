@@ -65,7 +65,10 @@ These expressions do not introduce new identifiers:
     function parameter default values
 
 ## identifier classification
-So here are my classification for identifeirs (it's convinent for my masters thesis), In general if a function is inside a class, then it's a method, we ignore edge cases like nested function inside a class. We also don't differentiate instance method, class method and static method---- although it's easy to implememt this, it's irrelavent to my masters thesis.:
+So here are my classification for identifeirs (it's convinent for my masters thesis), Here are a few things I ignored for the Granularity of my thesis:
+1. In general if a function is inside a class, then it's a method, we ignore edge cases like nested function inside a class.
+2. We also don't differentiate instance method, class method and static method---- although it's easy to implememt this, it's irrelavent to my masters thesis.
+3. We don't differentiate kwargs, args and normal parameter ---- it's also an easy fix...
 
     variable (including class/ enum variable)
     instance variable
