@@ -68,8 +68,9 @@ These expressions do not introduce new identifiers:
 So here are my classification for identifeirs (it's convinent for my masters thesis), Here are a few things I ignored for the Granularity of my thesis:
 1. In general if a function is inside a class, then it's a method, we ignore edge cases like nested function inside a class.
 2. We also don't differentiate instance method, class method and static method---- although it's easy to implememt this, it's irrelavent to my masters thesis.
-3. We don't differentiate kwargs, args and normal parameter ---- it's also an easy fix...
 
+However, we do separate positional arguments and keyword arguments (because they are usually the same...)
+So here are all the classes: 
 
     variable (including class/ enum variable)
     instance variable
@@ -84,6 +85,8 @@ So here are my classification for identifeirs (it's convinent for my masters the
     method name 
     function parameter
     method parameter
+    vararg
+    kwarg
     lambda parameter
 
     import alias
