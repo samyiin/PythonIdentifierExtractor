@@ -70,6 +70,7 @@ So here are my classification for identifeirs (it's convinent for my masters the
 2. We also don't differentiate instance method, class method and static method---- although it's easy to implememt this, it's irrelavent to my masters thesis.
 3. We don't differentiate kwargs, args and normal parameter ---- it's also an easy fix...
 
+
     variable (including class/ enum variable)
     instance variable
     for_loop variable
